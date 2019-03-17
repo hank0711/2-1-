@@ -1,0 +1,52 @@
+#include "stdio.h"
+#include "stdlib.h"
+
+int num=0;
+int sum=0;
+
+int count(int a[],int p,int q){
+	int n=a[(p+q)/2];
+	int counts=0;
+	int i=0;
+	for(i=p;i<q;i++)
+	{if(a[i]==n){
+	counts++;
+	}
+}
+	return counts;
+}
+int start(int a[],int p,int q){
+	int x=0;
+	int i=0;
+	for(i=p;i<q;i++){
+		if(a[i]==a[(p+q)/2])
+		{
+			x=i;
+			break;
+		}
+	}
+	return x;
+}
+void mode(int a[],int p,int q){
+	int tnum=(p+q)/2;
+	int tsum=count(a,p,q);
+	int left=start(a,p,q);
+	if(tsum>sum)
+	{
+		sum=tsum;
+		num=a[tnum];
+	}
+	if(q-(left+tsum)>sum){
+		mode(a,left+tsum,q); 
+	}
+	if(left>sum){
+		mode(a,0,left);
+	}
+	
+}
+
+void main(){
+	int a[]={1,2,2,2,3,5};
+	mode(a,0,6);
+	printf("重数为：%d\n众数为：%d\n",sum,num);
+}
